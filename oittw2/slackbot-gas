@@ -1,0 +1,34 @@
+function sendToSlack(body, channel) {
+  var url = "https://hooks.slack.com/services/***/*******";
+  var data = { "channel" : channel, "username" : "Googleフォーム Bot", "text" : body, "icon_emoji" : ":exclamation: " };
+  var payload = JSON.stringify(data);
+  var options = {
+    "method" : "POST",
+    "contentType" : "application/json",
+    "payload" : payload
+  };
+  var response = UrlFetchApp.fetch(url, options);
+}
+
+function onFormSubmit(e){
+
+  var body = "通知です\n"; 
+  var applicant = "";
+  var itemResponse = e.response.getItemResponses();
+
+  for (var j = 0; j < itemResponse.length; j++){    
+    var formData = itemResponse[j];
+    var title = formData.getItem().getTitle();
+    var response = formData.getResponse();
+
+    switch (title) {
+      case "あなたのチーム番号を選んで下さい。":
+        number = response;
+        break;
+      default:
+        break;
+    }
+  }
+  var bodyPublic = "<!channel>　" + number + "から解答が送られました！";
+  sendToSlack(bodyPublic, "#*******");
+}
