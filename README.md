@@ -1,2 +1,2 @@
-# oittw-slackbot
-OITTWのSlackbotに使用するコード
+# oittwのSlackbot
+OITTWのSlackbotについて記載してます。
